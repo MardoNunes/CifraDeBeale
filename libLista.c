@@ -3,31 +3,137 @@
 #include <string.h>
 #include "libLista.h"
 
-//Aloca a struct
-void initLista(){
-    struct lista *Lista = malloc(sizeof(struct lista));
-    if(Lista == NULL){
-        printf("Erro ao alocar Lista!!\n");
-        exit(1);
+struct nodo{
+    int valor;
+    struct nodo *prox;
+};
+
+struct nodoDuplo{
+    char chave;
+    struct nodo *valor;
+    struct nodoDuplo *prox;
+    struct nodoDuplo *ant;
+};
+
+struct Lista{
+    struct nodoDuplo *inicio;
+    struct nodoDuplo *fim;
+};
+
+//essa função ira buscar a chave e retornar o valor
+//realiza a busca para saber se a chave já existe
+//se ele encontrar a chave, adiciona o valor na lista de valores
+int busca(struct Lista *lista, char chave, int valor){
+    struct nodoDuplo *aux = lista->inicio;
+    //percorrendo a lista de chaves
+    while(aux != NULL){
+        //se a chave for a mesma que estou procurando, adiciona o valor na lista de valores
+        if(aux->chave == chave){
+            //se a lista de valores estver vazia
+            if(aux->valor == NULL){
+                struct nodo *novo = malloc(sizeof(struct nodo));
+                novo->valor = valor;
+                novo->prox = NULL;
+                aux->valor = novo;
+                return 1;
+            }
+            else{   //se a lista de valor não estiver vazia
+                struct nodo *aux2 = aux->valor;
+                while(aux2->prox != NULL){  //percorrendo a lista de valores até o final
+                    aux2 = aux2->prox;
+                }
+                //adiciona o valor no final da lista de valores
+                struct nodo *novo = malloc(sizeof(struct nodo));
+                novo->valor = valor;
+                novo->prox = NULL;
+                aux2->prox = novo;
+                return 1;
+            }
+        }
+        aux = aux->prox;
     }
+    return 0;
 }
 
-//enfilera a struct
-void enqueue(struct lista *Lista, char c, int *chave){
-    struct lista *novo = (struct lista *)malloc(sizeof(struct lista));
-    initLista(novo);
+
+
+//estou criando um lista dentro de outra lista
+//uma guarda as chaves e a outra os valores ligados a chave
+void enqueue(struct Lista *lista, char chave, int valor){
+    //verificando se a chave já existe
+    if(busca(lista, chave, valor) == 1){
+        return;
+    }
+    //se a cahve ainda nao existir
+    //criando a lista de chaves
+    struct nodoDuplo *novo = malloc(sizeof(struct nodoDuplo));
+    novo->chave = chave;
     
-    //Aqui eu crio um nodo solto, sem ligações
-    novo->prox = NULL;
-    novo->ant = NULL;
+    //criando a lista de valores
+    struct nodo *novo_valor = malloc(sizeof(struct nodo));
+    novo_valor->valor = valor;
+    novo_valor->prox = NULL;
+    novo->valor = novo_valor;
+    
 
-    //Aqui eu verifico se a lista está vazia
-    if(Lista->cabeca == NULL){
-        Lista->cabeca = novo;
-        Lista->fim = novo;
+    //se a lista estiver vazia
+    if(lista->inicio == NULL){
+        novo->prox = NULL;
+        novo->ant = NULL;
+        lista->inicio = novo;
+        lista->fim = novo;
+        novo->valor->prox = NULL;
+        novo_valor->prox = NULL;
+        
     }
-    else{
-        //Aqui eu ligo o novo nodo ao fim da lista
+    else{   //se a lista não estiver vazia
+        novo->prox = NULL;
+        novo->ant = lista->fim;
+        lista->fim->prox = novo;
+        lista->fim = novo;
+        novo->valor->prox = NULL;
+        novo_valor->prox = NULL;
     }
 
 }
+
+//esse procdedimento irá destruir a lista
+void dequeue(struct Lista *lista){
+    struct nodoDuplo *aux = lista->inicio;
+
+    //percorrendo a lista de chaves
+    while(aux != NULL){
+
+        struct nodo *aux2 = aux->valor;
+        //percorrendo a lista de valores
+        while(aux2 != NULL){
+            struct nodo *prox = aux2->prox;
+            free(aux2); //liberando a memoria da lista de valores
+            aux2 = prox;
+        }
+        struct nodoDuplo *prox = aux->prox;
+        free(aux); //o mesmo para a lista de chaves
+        aux = prox;
+    }
+    free(lista);
+}
+
+
+
+//esse procedimento imprimi as chaves e os valores
+void imprimi(struct Lista *lista){
+    struct nodoDuplo *aux = lista->inicio;
+
+    while(aux != NULL){
+        printf("Chave: %c\t", aux->chave);
+        struct nodo *aux2 = aux->valor;
+        while(aux2 != NULL){
+            printf("Valor: %d\t\n", aux2->valor);
+            aux2 = aux2->prox;
+        }
+        aux = aux->prox;
+    }
+}
+
+
+

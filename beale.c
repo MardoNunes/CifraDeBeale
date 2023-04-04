@@ -3,7 +3,7 @@
 #include <string.h>
 #include <strings.h>
 #include "libBeale.h"
-
+#include "libLista.h"
 
 
 //argc conta quantos argumentos estão sendo passados na entrada, incluindo o nome do programa
