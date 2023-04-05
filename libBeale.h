@@ -20,4 +20,10 @@ void error();
 //E se tais argumentos estão corretos
 int checkall(int argc, char **argv);
 
+//Essa função irá transformar todas as letras maiusculas em minusculas
+void minuscula(char *str);
+
+//Essa função testa se os arquivos foram abertos corretamente
+void testArq(FILE *arq);
+
 #endif

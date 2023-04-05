@@ -9,8 +9,8 @@ Criado por:
 
 */
 
-#ifndef __LIBBEALE__
-#define __LIBBEALE__
+#ifndef __LIBLISTA__
+#define __LIBLISTA__
 
 
 //estrutura que armazenará os valores
@@ -35,9 +35,6 @@ struct Lista{
 int busca(struct Lista *lista, char chave, int valor);
 void enqueue(struct Lista *lista, char chave, int valor);
 void dequeue(struct Lista *lista);
-void imprimi(struct Lista *lista);
-
-
-
+void imprimi(struct Lista *lista, FILE *ArquivoDeChaves);
 
 #endif

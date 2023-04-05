@@ -36,4 +36,21 @@ int checkall(int argc, char **argv){
         }
 }
     
+//esse função tranformará as string em minusculas
+void minuscula(char *str){
+    int i;
+    for(i = 0; str[i] != '\0'; i++){
+        if(str[i] >= 'A' && str[i] <= 'Z'){
+            str[i] = str[i] + 32;
+        }
+    }
+}
 
+//essa função testa se os arquivos foram abertos corretamente
+void testArq(FILE *arq){
+    if(arq == NULL){
+        printf("Erro ao abrir o arquivo\n");
+        exit(1);
+    }
+
+}

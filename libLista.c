@@ -3,24 +3,9 @@
 #include <string.h>
 #include "libLista.h"
 
-struct nodo{
-    int valor;
-    struct nodo *prox;
-};
 
-struct nodoDuplo{
-    char chave;
-    struct nodo *valor;
-    struct nodoDuplo *prox;
-    struct nodoDuplo *ant;
-};
 
-struct Lista{
-    struct nodoDuplo *inicio;
-    struct nodoDuplo *fim;
-};
-
-//essa função ira buscar a chave e retornar o valor
+//essa função ira buscar a chave e retorna 1 se achar e 0 se não achar
 //realiza a busca para saber se a chave já existe
 //se ele encontrar a chave, adiciona o valor na lista de valores
 int busca(struct Lista *lista, char chave, int valor){
@@ -64,7 +49,7 @@ void enqueue(struct Lista *lista, char chave, int valor){
     if(busca(lista, chave, valor) == 1){
         return;
     }
-    //se a cahve ainda nao existir
+    //se a chave ainda nao existir
     //criando a lista de chaves
     struct nodoDuplo *novo = malloc(sizeof(struct nodoDuplo));
     novo->chave = chave;
@@ -73,7 +58,7 @@ void enqueue(struct Lista *lista, char chave, int valor){
     struct nodo *novo_valor = malloc(sizeof(struct nodo));
     novo_valor->valor = valor;
     novo_valor->prox = NULL;
-    novo->valor = novo_valor;
+    novo->valor = novo_valor;   //aqui ligo a chave a lista de valores daquela chave
     
 
     //se a lista estiver vazia
@@ -121,19 +106,21 @@ void dequeue(struct Lista *lista){
 
 
 //esse procedimento imprimi as chaves e os valores
-void imprimi(struct Lista *lista){
+void imprimi(struct Lista *lista, FILE *ArquivoDeChaves){
     struct nodoDuplo *aux = lista->inicio;
 
     while(aux != NULL){
-        printf("Chave: %c\t", aux->chave);
+        fprintf(ArquivoDeChaves, "%c: ", aux->chave);
         struct nodo *aux2 = aux->valor;
         while(aux2 != NULL){
-            printf("Valor: %d\t\n", aux2->valor);
+            fprintf(ArquivoDeChaves, "%d ", aux2->valor);
             aux2 = aux2->prox;
         }
+        fprintf(ArquivoDeChaves,"\n");
         aux = aux->prox;
     }
 }
+
 
 
 
