@@ -63,13 +63,13 @@ int busca(struct Lista *lista, char chave){
     int value;
     while(aux != NULL){ //percorre a lista de chaves
         if(aux->chave == chave){    //se achar a chave, adiciono em value e retorno ess valor
-            struct nodo *aux2 = aux->valor;
+            struct nodo *aux2 = aux->valor; //O erro está aui, esse declaração!!
             value = aux2->valor;    //adiciona o valor na variavel value
             aux2 = aux2->prox;  //vai para o proximo valor
             
-            // if(aux2 == NULL){
-            //     aux2 = aux->valor;  //se o proximo valor for nulo, ele volta para o primeiro valor
-            // }
+            if(aux2 == NULL){
+                aux2 = aux->valor;  //se o proximo valor for nulo, ele volta para o primeiro valor
+            }
             return value;
         }
         aux = aux->prox;
@@ -92,4 +92,5 @@ void encoder(struct Lista *lista, char *mstr){
         }
         printf("%d ", code);
     }
+    printf("-1 ");
 }
