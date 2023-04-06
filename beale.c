@@ -33,7 +33,7 @@ int main(int argc, char **argv){
         //abrindo o arquivos de entrada
         LivroCifra = fopen("LivroCifra.txt", "r");
         ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "w");
-        MensagemOriginal = fopen("MensagemOriginal.txt", "w");
+        MensagemOriginal = fopen("MensagemOriginal.txt", "r");
         
         
         //verrificando se os arquivos foram abertos corretamente
@@ -53,7 +53,14 @@ int main(int argc, char **argv){
         }
 
         //Processo de codificação:
-        
+        char mstr[1024];
+
+        fscanf(MensagemOriginal, "%s", mstr);
+        while(!feof(MensagemOriginal)){
+            minuscula(mstr);
+            encoder(lista, mstr);
+            fscanf(MensagemOriginal, "%s", mstr);
+        }
 
         
 
@@ -75,11 +82,12 @@ int main(int argc, char **argv){
         
         break;
     default:
+
         error();
         break;
     }
 
 
-
+    
     return 0;
 }

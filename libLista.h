@@ -17,6 +17,7 @@ Criado por:
 struct nodo{
     int valor;
     struct nodo *prox;
+    struct nodo *ant;
 };
 
 struct nodoDuplo{
@@ -32,7 +33,7 @@ struct Lista{
 };
 
 //funções
-int busca(struct Lista *lista, char chave, int valor);
+int verefica(struct Lista *lista, char chave, int valor);
 void enqueue(struct Lista *lista, char chave, int valor);
 void dequeue(struct Lista *lista);
 void imprimi(struct Lista *lista, FILE *ArquivoDeChaves);

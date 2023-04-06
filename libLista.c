@@ -8,7 +8,7 @@
 //essa função ira buscar a chave e retorna 1 se achar e 0 se não achar
 //realiza a busca para saber se a chave já existe
 //se ele encontrar a chave, adiciona o valor na lista de valores
-int busca(struct Lista *lista, char chave, int valor){
+int verefica(struct Lista *lista, char chave, int valor){
     struct nodoDuplo *aux = lista->inicio;
     //percorrendo a lista de chaves
     while(aux != NULL){
@@ -46,7 +46,7 @@ int busca(struct Lista *lista, char chave, int valor){
 //uma guarda as chaves e a outra os valores ligados a chave
 void enqueue(struct Lista *lista, char chave, int valor){
     //verificando se a chave já existe
-    if(busca(lista, chave, valor) == 1){
+    if(verefica(lista, chave, valor) == 1){
         return;
     }
     //se a chave ainda nao existir
@@ -58,6 +58,7 @@ void enqueue(struct Lista *lista, char chave, int valor){
     struct nodo *novo_valor = malloc(sizeof(struct nodo));
     novo_valor->valor = valor;
     novo_valor->prox = NULL;
+    novo_valor->ant = NULL;
     novo->valor = novo_valor;   //aqui ligo a chave a lista de valores daquela chave
     
 
@@ -69,6 +70,7 @@ void enqueue(struct Lista *lista, char chave, int valor){
         lista->fim = novo;
         novo->valor->prox = NULL;
         novo_valor->prox = NULL;
+        novo_valor->ant = NULL;
         
     }
     else{   //se a lista não estiver vazia
@@ -77,7 +79,9 @@ void enqueue(struct Lista *lista, char chave, int valor){
         lista->fim->prox = novo;
         lista->fim = novo;
         novo->valor->prox = NULL;
+        novo_valor->ant = novo_valor->prox;
         novo_valor->prox = NULL;
+
     }
 
 }

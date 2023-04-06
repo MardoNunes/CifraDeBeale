@@ -9,6 +9,8 @@ Criado por:
 
 */
 
+#include "libLista.h"
+
 #ifndef __LIBBEALE__
 #define __LIBBEALE__
 
@@ -25,5 +27,14 @@ void minuscula(char *str);
 
 //Essa função testa se os arquivos foram abertos corretamente
 void testArq(FILE *arq);
+
+
+//Essa função vai separar cada caracter da string e codificar
+void encoder(struct Lista *lista, char *mstr);
+
+//Essa função busca o caracter na lista e devolve um valor para codificar
+int busca(struct Lista *lista, char chave);
+
+
 
 #endif
