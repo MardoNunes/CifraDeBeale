@@ -18,6 +18,7 @@ int main(int argc, char **argv){
     FILE *LivroCifra;  //guarda as minhas chaves do livro cifra
     FILE *ArquivoDeChaves; //receberá a saida. O arquivo de chaves
     FILE *MensagemOriginal; //receberá a mensagem original
+    FILE *MensagemCodificada; //receberá a mensagem codificada
 
     int nav;
     char str[1024];
@@ -34,12 +35,14 @@ int main(int argc, char **argv){
         LivroCifra = fopen("LivroCifra.txt", "r");
         ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "w");
         MensagemOriginal = fopen("MensagemOriginal.txt", "r");
+        MensagemCodificada = fopen("MensagemCodificada.txt", "w");
         
         
         //verrificando se os arquivos foram abertos corretamente
         testArq(LivroCifra);
         testArq(ArquivoDeChaves);
         testArq(MensagemOriginal);
+        testArq(MensagemCodificada);
 
         //processo de leitura e estruturação:
 
@@ -54,13 +57,16 @@ int main(int argc, char **argv){
 
         //Processo de codificação:
         char mstr[1024];
-
+        int code;
         fscanf(MensagemOriginal, "%s", mstr);
         while(!feof(MensagemOriginal)){
             minuscula(mstr);
-            encoder(lista, mstr);
+            encoder(lista, mstr, MensagemCodificada);
+            fprintf(MensagemCodificada, "-1 ");
             fscanf(MensagemOriginal, "%s", mstr);
+            
         }
+        printf("\n");
 
         
 
@@ -70,6 +76,8 @@ int main(int argc, char **argv){
         fclose(LivroCifra);
         imprimi(lista, ArquivoDeChaves);
         fclose(ArquivoDeChaves);
+        fclose(MensagemOriginal);
+        fclose(MensagemCodificada);
         dequeue(lista);
 
         break;

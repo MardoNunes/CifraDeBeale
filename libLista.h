@@ -16,6 +16,7 @@ Criado por:
 //estrutura que armazenará os valores
 struct nodo{
     int valor;
+    int size;
     struct nodo *prox;
     struct nodo *ant;
 };
