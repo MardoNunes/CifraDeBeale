@@ -28,7 +28,7 @@ int main(int argc, char **argv){
     nav = checkall(argc, argv);
     switch (nav)
     {
-    case 1: //encoder
+    case 1:{ //encoder
         
         
         //abrindo o arquivos de entrada
@@ -58,8 +58,8 @@ int main(int argc, char **argv){
         //Processo de codificação:
         char mstr;
         int code;
-        //fscanf(MensagemOriginal, "%s", mstr);
-        mstr = fgetc(MensagemOriginal);
+        //le o arquivo caracter por caracter
+        mstr = fgetc(MensagemOriginal); //le o primeiro caractere
         while(mstr != EOF){
             minusculaChar(&mstr);
             encoder(lista, mstr, MensagemCodificada);
@@ -75,9 +75,31 @@ int main(int argc, char **argv){
         dequeue(lista);
 
         break;
+    }
     case 2:
         //decoder com arquivo chave
-        
+
+        //abrindo arquivos
+        ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "r");
+
+
+        //verrificando se os arquivos foram abertos corretamente
+        testArq(ArquivoDeChaves);
+
+
+        //processo de leitura e estruturação:
+        //vou ler o arquivo de chaves e adicionar na estrutura
+        fscanf(ArquivoDeChaves, "%s", str); //fscanf para ler palavra por palavra
+        while(!feof(ArquivoDeChaves)){
+            if(str[0] >= 'a' && str[0] <= 'z')
+                printf("Chave: %c\n", str[0]);
+            else
+                printf("Valores: %s\n", str);
+            fscanf(ArquivoDeChaves, "%s", str);
+        }
+
+        //fecha o arquivo
+        fclose(ArquivoDeChaves);
         break;
     case 3:
         //decoder com livro cifra
