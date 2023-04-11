@@ -39,12 +39,19 @@ int checkall(int argc, char **argv){
 }
     
 //esse função tranformará as string em minusculas
-void minuscula(char *str){
+void minusculaStr(char *str){
     int i;
     for(i = 0; str[i] != '\0'; i++){
         if(str[i] >= 'A' && str[i] <= 'Z'){
             str[i] = str[i] + 32;
         }
+    }
+}
+
+//Essa funlçao tranformará o caracter em minusculo
+void minusculaChar(char *ch){
+    if(*ch >= 'A' && *ch <= 'Z'){
+        *ch = *ch + 32;
     }
 }
 
@@ -91,23 +98,13 @@ int busca(struct Lista *lista, char chave){
         }
         aux = aux->prox;
     }
-    printf("Caracter não encontrado!\n");
     return -1;
 }
 
 
 //essa função vai separar cada caracter da string e codificar
-void encoder(struct Lista *lista, char *mstr, FILE *MensagemCodificada){
-    //char aux;
-    int code;
-    for(int i = 0; i < strlen(mstr); i++){
-        
-        code = busca(lista, mstr[i]);
+void encoder(struct Lista *lista, char mstr, FILE *MensagemCodificada){
+        int code;
+        code = busca(lista, mstr);
         fprintf(MensagemCodificada, "%d ", code);
-        if(code == -1){
-            error();
-            exit(1);
-        }
-    }
-    
 }

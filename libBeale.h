@@ -23,14 +23,17 @@ void error();
 int checkall(int argc, char **argv);
 
 //Essa função irá transformar todas as letras maiusculas em minusculas
-void minuscula(char *str);
+void minusculaStr(char *str);
+
+//Essa função irá transformar o caracter em minusculo
+void minusculaChar(char *ch);
 
 //Essa função testa se os arquivos foram abertos corretamente
 void testArq(FILE *arq);
 
 
 //Essa função vai separar cada caracter da string e codificar
-void encoder(struct Lista *lista, char *mstr, FILE *ArquivoDeChaves);
+void encoder(struct Lista *lista, char mstr, FILE *ArquivoDeChaves);
 
 //Essa função busca o caracter na lista e devolve um valor para codificar
 int busca(struct Lista *lista, char chave);

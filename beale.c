@@ -49,29 +49,23 @@ int main(int argc, char **argv){
         //le todas as linhas do arquivo paravra por palavra
         fscanf(LivroCifra, "%s", str); //fscanf para ler palavra por palavra
         while(!feof(LivroCifra)){
-            minuscula(str); //deixo todos os caracteres em minusculo 
+            minusculaStr(str); //deixo todos os caracteres em minusculo 
             enqueue(lista, str[0], pos);    //passo a chave e o valor para adicionar nas listas
             pos++; //inremento da qtd de palavras
             fscanf(LivroCifra, "%s", str);
         }
 
         //Processo de codificação:
-        char mstr[1024];
+        char mstr;
         int code;
-        fscanf(MensagemOriginal, "%s", mstr);
-        while(!feof(MensagemOriginal)){
-            minuscula(mstr);
+        //fscanf(MensagemOriginal, "%s", mstr);
+        mstr = fgetc(MensagemOriginal);
+        while(mstr != EOF){
+            minusculaChar(&mstr);
             encoder(lista, mstr, MensagemCodificada);
-            fprintf(MensagemCodificada, "-1 ");
-            fscanf(MensagemOriginal, "%s", mstr);
+            mstr = fgetc(MensagemOriginal);
             
         }
-        printf("\n");
-
-        
-
-
-
         //fecha o arquivo
         fclose(LivroCifra);
         imprimi(lista, ArquivoDeChaves);
