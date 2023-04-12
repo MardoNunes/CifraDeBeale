@@ -108,3 +108,12 @@ void encoder(struct Lista *lista, char mstr, FILE *MensagemCodificada){
         code = busca(lista, mstr);
         fprintf(MensagemCodificada, "%d ", code);
 }
+
+
+//Essa função ira ler os caracteres do arquivo chave e retorna-los para adicionar na lista
+char leChar(char *str){
+     if(str[0] >= 'a' && str[0] <= 'z')
+        return str[0];
+    else if(str[0] >= '0' && str[0] <= '9' && str[1] == ':')
+        return str[0];
+}

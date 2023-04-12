@@ -76,8 +76,11 @@ int main(int argc, char **argv){
 
         break;
     }
-    case 2:
+    case 2: {
         //decoder com arquivo chave
+
+        int valor = -1; //ira receber a conversão de str para int
+        char chave; //ira receber a chave
 
         //abrindo arquivos
         ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "r");
@@ -91,16 +94,24 @@ int main(int argc, char **argv){
         //vou ler o arquivo de chaves e adicionar na estrutura
         fscanf(ArquivoDeChaves, "%s", str); //fscanf para ler palavra por palavra
         while(!feof(ArquivoDeChaves)){
+            
+            //CRIAR LOGICA PARA ESTRUTURAR OS DADOS!!
+
             if(str[0] >= 'a' && str[0] <= 'z')
                 printf("Chave: %c\n", str[0]);
-            else
-                printf("Valores: %s\n", str);
+            else if(str[0] >= '0' && str[0] <= '9' && str[1] == ':')
+                printf("chave: %c\n", str[0]);
+            else{
+                valor = atoi(str);    //cast para int
+                printf("Valores: %d\n", valor);
+            }
             fscanf(ArquivoDeChaves, "%s", str);
         }
 
         //fecha o arquivo
         fclose(ArquivoDeChaves);
         break;
+    }
     case 3:
         //decoder com livro cifra
         
