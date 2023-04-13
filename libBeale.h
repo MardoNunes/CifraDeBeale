@@ -41,4 +41,8 @@ int busca(struct Lista *lista, char chave);
 //Essa função ira calcular o tamanho da lista de valores e retronar esse tamanho
 int tamanho(struct Lista *lista, struct nodoDuplo *aux);
 
+//Essa função ira decodificar a mensagem
+void decoder(struct Lista *lista, int code, FILE *MensagemDecodificada);
+
+
 #endif

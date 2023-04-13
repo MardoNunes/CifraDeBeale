@@ -108,3 +108,9 @@ void encoder(struct Lista *lista, char mstr, FILE *MensagemCodificada){
         code = busca(lista, mstr);
         fprintf(MensagemCodificada, "%d ", code);
 }
+
+
+//essa função vai decodificar a mensagem
+void decoder(struct Lista *lista, int code, FILE *MensagemDecodificada){
+    
+}
