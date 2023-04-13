@@ -57,7 +57,6 @@ int main(int argc, char **argv){
 
         //Processo de codificação:
         char mstr;
-        int code;
         //le o arquivo caracter por caracter
         mstr = fgetc(MensagemOriginal); //le o primeiro caractere
         while(mstr != EOF){
