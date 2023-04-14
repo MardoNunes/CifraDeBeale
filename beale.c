@@ -78,7 +78,7 @@ int main(int argc, char **argv){
     }
     case 2: {
         //decoder com arquivo chave
-
+        
 
         int valor = -1; //ira receber a conversão de str para int
         char chave; //ira receber a chave
@@ -89,7 +89,7 @@ int main(int argc, char **argv){
         ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "r");
         MensagemCodificada = fopen("MensagemCodificada.txt", "r");
         MensagemDecodificada = fopen("MensagemDecodificada.txt", "w");
-
+        
         //verrificando se os arquivos foram abertos corretamente
         testArq(ArquivoDeChaves);
         testArq(MensagemCodificada);
@@ -102,22 +102,28 @@ int main(int argc, char **argv){
             
             //Jogando o arquivo de chaves na estrutura
 
-            if(str[0] >= 'a' && str[0] <= 'z')  //verefica se é uma chave
+            if(str[0] >= 'a' && str[0] <= 'z'){  //verefica se é uma chave
                 chave = str[0];
-            else if(str[0] >= '0' && str[0] <= '9' && str[1] == ':')    //verefica se é uma chave, mas se é um numero
-                chave = str[0];
-            else   //se não for uma chave, é um valor
-                valor = atoi(str);    //cast para int
                 
+            }
+            else if(str[0] >= '0' && str[0] <= '9' && str[1] == ':'){    //verefica se é uma chave, mas se é um numero
+                chave = str[0];
+
+            }
+            else{   //se não for uma chave, é um valor
+                valor = atoi(str);    //cast para int
+            }
             if(valor != -1){
+               
                 enqueue(lista, chave, valor);
                 valor = -1;
             }
             fscanf(ArquivoDeChaves, "%s", str);
+        }
 
             //Agora vou fazer a decodificação
             //le o arquivo palavra por palavra e busco na estrutura
-            char mstr[1];  //recebe o caractere
+            char mstr[1024];  //recebe o caractere
             int caracter;  //recebe o valor do caractere
             fscanf(MensagemCodificada, "%s", mstr);
             while(!feof(MensagemCodificada)){
@@ -126,7 +132,7 @@ int main(int argc, char **argv){
                 fscanf(MensagemCodificada, "%s", mstr);
             }
 
-        }
+        
         //fecha o arquivo
         fclose(ArquivoDeChaves);
         fclose(MensagemCodificada);
@@ -134,10 +140,15 @@ int main(int argc, char **argv){
         dequeue(lista);
         break;
     }
-    case 3:
+    case 3:{
         //decoder com livro cifra
         
+
+
+
+        
         break;
+    }
     default:
 
         error();

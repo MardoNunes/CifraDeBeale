@@ -83,7 +83,6 @@ void enqueue(struct Lista *lista, char chave, int valor){
         novo_valor->prox = NULL;
 
     }
-
 }
 
 //esse procdedimento irá destruir a lista
