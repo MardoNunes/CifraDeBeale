@@ -22,8 +22,7 @@ int main(int argc, char **argv){
     FILE *MensagemDecodificada; //receberá a mensagem decodificada
 
     int nav;
-    char str[1024];
-    int pos = 0;
+    
     
 
     nav = checkall(argc, argv);
@@ -31,6 +30,8 @@ int main(int argc, char **argv){
     {
     case 1:{ //encoder
         
+        char str[1024];
+        int pos = 0;
         
         //abrindo o arquivos de entrada
         LivroCifra = fopen("LivroCifra.txt", "r");
@@ -66,7 +67,7 @@ int main(int argc, char **argv){
             mstr = fgetc(MensagemOriginal);
             
         }
-        //fecha o arquivo
+        //liberando memoria
         fclose(LivroCifra);
         imprimi(lista, ArquivoDeChaves);
         fclose(ArquivoDeChaves);
@@ -79,7 +80,7 @@ int main(int argc, char **argv){
     case 2: {
         //decoder com arquivo chave
         
-
+        char str[1024];
         int valor = -1; //ira receber a conversão de str para int
         char chave; //ira receber a chave
         
@@ -133,7 +134,7 @@ int main(int argc, char **argv){
             }
 
         
-        //fecha o arquivo
+        //liberando memoria
         fclose(ArquivoDeChaves);
         fclose(MensagemCodificada);
         fclose(MensagemDecodificada);
@@ -143,10 +144,46 @@ int main(int argc, char **argv){
     case 3:{
         //decoder com livro cifra
         
+        char str[1024];
+        int pos = 0;
+        int caracter;
+        char mstr[1024];
+  
+
+        //abridno arquivos
+        LivroCifra = fopen("LivroCifra.txt", "r");
+        MensagemCodificada = fopen("MensagemCodificada.txt", "r");
+        MensagemDecodificada = fopen("MensagemDecodificada.txt", "w");
+
+        //vereficando..
+        testArq(LivroCifra);
+        testArq(MensagemCodificada);
+        testArq(MensagemDecodificada);
 
 
+        //processo de leitura e estruturação:
+        //vou pegar o que extraio do livro cifra e adicionar na estrutura
+        fscanf(LivroCifra, "%s", str); //fscanf para ler palavra por palavra
+        while(!feof(LivroCifra)){
+            minusculaStr(str);   //deixo tudo minusculo
+            enqueue(lista, str[0], pos);    //passo a chave e o valor para adicionar na estrutura
+            pos++; //incremento da posição da palavra
+            fscanf(LivroCifra, "%s", str);
+        }
 
-        
+        //Agora vou fazer a decodificação
+        fscanf(MensagemCodificada, "%s", mstr);
+        while(!feof(MensagemCodificada)){
+            caracter = atoi(&mstr[0]);
+            decoder(lista, caracter, MensagemDecodificada);
+            fscanf(MensagemCodificada, "%s", mstr);
+            }
+
+        //liberando memoria
+        fclose(LivroCifra);
+        fclose(MensagemCodificada);
+        fclose(MensagemDecodificada);
+        dequeue(lista);
         break;
     }
     default:
