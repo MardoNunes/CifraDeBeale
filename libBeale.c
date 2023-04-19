@@ -105,7 +105,10 @@ int busca(struct Lista *lista, char chave){
 //essa função vai separar cada caracter da string e codificar
 void encoder(struct Lista *lista, char mstr, FILE *MensagemCodificada){
         int code;
-        code = busca(lista, mstr);
+        if(mstr == '\n')
+            code = -2;
+        else
+            code = busca(lista, mstr);
         fprintf(MensagemCodificada, "%d ", code);
 }
 
@@ -139,6 +142,8 @@ void decoder(struct Lista *lista, int code, FILE *MensagemDecodificada){
     char chave;
     if(code == -1)
         fprintf(MensagemDecodificada, " ");
+    else if(code == -2)
+        fprintf(MensagemDecodificada, "\n");
     else{
         chave = buscaDecoder(lista, code);
         if(chave != ' ')

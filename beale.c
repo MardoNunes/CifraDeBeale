@@ -52,12 +52,13 @@ int main(int argc, char **argv){
         fscanf(LivroCifra, "%s", str); //fscanf para ler palavra por palavra
         while(!feof(LivroCifra)){
             minusculaStr(str); //deixo todos os caracteres em minusculo 
-            enqueue(lista, str[0], pos);    //passo a chave e o valor para adicionar nas listas
-            pos++; //inremento da qtd de palavras
+            enqueue(lista, str[0], pos);    //passo a chave e o valor para a estrutura
+            pos++; //inremento a posição
             fscanf(LivroCifra, "%s", str);
         }
 
         //Processo de codificação:
+
         char mstr;
         //le o arquivo caracter por caracter
         mstr = fgetc(MensagemOriginal); //le o primeiro caractere
@@ -67,9 +68,11 @@ int main(int argc, char **argv){
             mstr = fgetc(MensagemOriginal);
             
         }
+
+        imprimi(lista, ArquivoDeChaves);    //aqui é montado o arquivo de chaves!
+
         //liberando memoria
         fclose(LivroCifra);
-        imprimi(lista, ArquivoDeChaves);
         fclose(ArquivoDeChaves);
         fclose(MensagemOriginal);
         fclose(MensagemCodificada);
@@ -114,6 +117,7 @@ int main(int argc, char **argv){
             else{   //se não for uma chave, é um valor
                 valor = atoi(str);    //cast para int
             }
+            
             if(valor != -1){
                
                 enqueue(lista, chave, valor);

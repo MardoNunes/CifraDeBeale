@@ -10,6 +10,7 @@
 //se ele encontrar a chave, adiciona o valor na lista de valores
 int verefica(struct Lista *lista, char chave, int valor){
     struct nodoDuplo *aux = lista->inicio;
+    
     //percorrendo a lista de chaves
     while(aux != NULL){
         //se a chave for a mesma que estou procurando, adiciona o valor na lista de valores
