@@ -1,4 +1,4 @@
-CFLAGS = -Wall -g -std=c99
+CFLAGS = -Wall -g -std=c99 -c
 
 objs = beale.o libBeale.o libLista.o
 
