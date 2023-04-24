@@ -1,6 +1,6 @@
 /*
 Biblioteca que contém as funções de checagem 
-de argumento para o problema da cifra de Beale
+de argumento e outras funções de tratamento para o problema da cifra de Beale
 
 Criado por: 
     Madoqueu F. Nunes
@@ -32,20 +32,6 @@ void minusculaChar(char *ch);
 void testArq(FILE *arq);
 
 
-//Essa função vai separar cada caracter da string e codificar
-void encoder(struct Lista *lista, char mstr, FILE *ArquivoDeChaves);
-
-//Essa função busca o caracter na lista e devolve um valor para codificar
-int busca(struct Lista *lista, char chave);
-
-//Essa função ira calcular o tamanho da lista de valores e retronar esse tamanho
-int tamanho(struct Lista *lista, struct nodoDuplo *aux);
-
-//Essa função ira decodificar a mensagem
-void decoder(struct Lista *lista, int code, FILE *MensagemDecodificada);
-
-//essa função procura o valor na lista e retorna o caracter correspondente
-char buscaDecoder(struct Lista *lista, int code);
 
 
 #endif

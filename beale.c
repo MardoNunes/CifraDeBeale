@@ -4,6 +4,8 @@
 #include <strings.h>
 #include "libBeale.h"
 #include "libLista.h"
+#include "libDecoder.h"
+#include "libEncoder.h"
 
 
 //argc conta quantos argumentos estão sendo passados na entrada, incluindo o nome do programa
@@ -35,9 +37,9 @@ int main(int argc, char **argv){
         
         //abrindo o arquivos de entrada
         LivroCifra = fopen("LivroCifra.txt", "r");
-        ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "w");
+        ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "w+");
         MensagemOriginal = fopen("MensagemOriginal.txt", "r");
-        MensagemCodificada = fopen("MensagemCodificada.txt", "w");
+        MensagemCodificada = fopen("MensagemCodificada.txt", "w+");
         
         
         //verrificando se os arquivos foram abertos corretamente
@@ -106,13 +108,16 @@ int main(int argc, char **argv){
             
             //Jogando o arquivo de chaves na estrutura
 
-            if(str[0] >= 'a' && str[0] <= 'z'){  //verefica se é uma chave
+            if(str[0] >= 'a' && str[0] <= 'z'){  //verefica se é uma chave, qunado é letra
                 chave = str[0];
                 
             }
             else if(str[0] >= '0' && str[0] <= '9' && str[1] == ':'){    //verefica se é uma chave, mas se é um numero
                 chave = str[0];
 
+            }
+            else if((str[0] >= 33 && str[0] <= 47) || (str[0] >= 58 && str[0] <= 64) || (str[0] >= 91 && str[0] <= 96)){ //verefica se é uma chave, mas se é um caractere especial
+                chave = str[0];
             }
             else{   //se não for uma chave, é um valor
                 valor = atoi(str);    //cast para int
