@@ -37,9 +37,9 @@ int main(int argc, char **argv){
         
         //abrindo o arquivos de entrada
         LivroCifra = fopen("LivroCifra.txt", "r");
-        ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "w+");
+        ArquivoDeChaves = fopen("ArquivoDeChaves.txt", "w");
         MensagemOriginal = fopen("MensagemOriginal.txt", "r");
-        MensagemCodificada = fopen("MensagemCodificada.txt", "w+");
+        MensagemCodificada = fopen("MensagemCodificada.txt", "w");
         
         
         //verrificando se os arquivos foram abertos corretamente
